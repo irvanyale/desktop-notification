@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>Demo Notifikasi Desktop</title>
+        <style>
+            a {
+                display: inline-block;
+                text-decoration: none;
+                padding: 15px;
+                background-color: #0067E7;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Demo Notifikasi Desktop</h1>
+        <p>Klik Subscribe Us, untuk mendapatkan artikel terbaru dari kami</p>
+        <a href="#" id="subscribe">Subscribe Us</a>
+
+        <script>
+            // mengambil element berdasarkan id
+            var subscribe = document.getElementById('subscribe');
+            subscribe.addEventListener('click', function(e) {
+                e.preventDefault();
+                // jika web browser tidak mendukung notifikasi
+                if(!window.Notification){
+                    alert('Mohon maaf, notifikasi tidak mendukung');
+                } else {
+                    Notification.requestPermission(function(p) {
+                        // jika notifikasi diblokir
+                        if(p == 'denied'){
+                            alert("Terima Kasih telah tidak berlangganan");
+                        }
+                        // jika notifikasi diizinkan 
+                        else if(p == 'granted') {
+                            alert("Terima kasih telah berlangganan");
+                        }
+                    });
+                }
+            });
+
+            addEventListener('load', function(p) {
+                var notify;
+                p.preventDefault();
+                console.log(Notification.permission);
+                // jika notifikasi diizinkan
+                if(Notification.permission == 'granted'){
+                    notify = new Notification("Artikel Terbaru Irvan Yale", {
+                        // judul notifikasi
+                        body : "Tutorial Membuat Notifikasi Dekstop",
+                        // icon notifikasi
+                        icon : "img/logo.png"
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>
